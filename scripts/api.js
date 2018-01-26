@@ -41,6 +41,20 @@ const api = (function () {
     $.ajax(setting)
   }
 
+  function deleteItem(id, callback) {
+    // const newItem = JSON.stringify(updateData);
+    // console.log(id);
+
+    const setting = {
+      
+      url: `${BASE_URL}/bookmarks/${id}`,
+      method: 'DELETE',
+      success: callback
+    }
+
+    $.ajax(setting)
+  }
+
   function filterRating(num = minRating) {
     console.log('in filter: ', minRating);
     
@@ -75,6 +89,7 @@ const api = (function () {
     getItems,
     createItem,
     updateItem,
-    filterRating
+    filterRating,
+    deleteItem
   }
 }())

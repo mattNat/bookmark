@@ -16,30 +16,19 @@ let store = (function () {
   //   { consothis.le.log(e.message); 
   // };
   };
-  // const toggleAdd = function () {
-  //   this.hideCheckedItems = !this.hideCheckedItems;
-  // };
-
-  // const toggleAddForm = function () {
-  //   console.log('toggle add form');
-  //   let acc = document.getElementsByClassName("accordion");
-  //   let i;
-  //   for (i = 0; i < acc.length; i++) {
-  //       acc[i].addEventListener("click", function() {
-  //           /* Toggle between adding and removing the "active" class,
-  //           to highlight the button that controls the panel */
-  //           this.classList.toggle("active");
   
-  //           /* Toggle between hiding and showing the active panel */
-  //           let panel = this.nextElementSibling;
-  //           if (panel.style.display === "block") {
-  //               panel.style.display = "none";
-  //           } else {
-  //               panel.style.display = "block";
-  //           }
-  //       });
-  //   }
-  // }
+  const findAndDelete = function(id) {
+    this.items = this.items.filter(item => item.id !== id);
+  };
+
+  const findById = function(id) {
+    return this.items.find(item => item.id === id);
+  };
+
+  const findAndUpdate = function (id, newData) {
+    const foundItem = this.findById(id)
+    Object.assign(foundItem, newData)
+  }
 
   return {
     items: [],
@@ -50,8 +39,8 @@ let store = (function () {
     // searchTerm: '',
 
     addItem,
-    // findById,
-    // findAndDelete,
+    findById,
+    findAndDelete,
     // toggleCheckedFilter,
     // setSearchTerm,
     // findAndUpdate
