@@ -3,7 +3,7 @@
 console.log('store.js registered');
 
 // eslint-disable-next-line no-unused-vars
-const store = (function () {
+let store = (function () {
   const addItem = function(item) {
     item.condense = true;
     // console.log(this);

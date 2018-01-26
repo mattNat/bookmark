@@ -13,9 +13,9 @@
 
 <body>
   <h1 id='title'>Bookmark Me!</h1>
-  <form>
+  <form id="js-filter-form">
     <!-- <button type="submit">Add</button> -->
-    <label for="ratingFilter">Min Rating</label>
+    <label class="js-rating-filter" for="ratingFilter">Min Rating</label>
     <select id="ratingFilter" name="ratingFilter">
       <option value="0">Choose</option>
       <option value="1">&#9733;</option>
@@ -24,6 +24,8 @@
       <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
       <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
     </select>
+    <input type="submit" value="Submit">
+    <input type="reset" value="Reset" onClick="window.location.reload()">
   </form>
 
   <div>
@@ -32,15 +34,15 @@
       <form id="js-bookmark-form" action="/action_page.php">
         <div class="foo">
           <label for="title">Title:</label>
-          <input class='js-bookmark-title' type="text" id="title" name="title" placeholder="Title of bookmark...">
+          <input class='js-bookmark-title' type="text" id="title" name="title" placeholder="Title of bookmark..." required>
           <br>
   
           <label for="link">Link:</label>
-          <input class='js-bookmark-link' type="text" id="link" name="link" placeholder="Link to site...">
+          <input class='js-bookmark-link' type="text" id="link" name="link" placeholder="Link to site..." required>
           <br>
   
           <label for="description">Description:</label>
-          <input class='js-bookmark-description' type="text" id="description" name="description" placeholder="Input description...">
+          <input class='js-bookmark-description' type="text" id="description" name="description" placeholder="Input description..." required>
           <br>
 
           <label for="rating">Rating</label>
@@ -91,8 +93,8 @@
 
   <script type="text/javascript" src="scripts/Item.js"></script>
   <script type="text/javascript" src="scripts/store.js"></script>
-  <script type="text/javascript" src="scripts/bookmark.js"></script>
   <script type="text/javascript" src="scripts/api.js"></script>
+  <script type="text/javascript" src="scripts/bookmark.js"></script>
   <script type="text/javascript" src="scripts/index.js"></script>
 
 </body>

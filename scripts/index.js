@@ -1,12 +1,13 @@
-/* global bookmark, store, api, Item */
+/* global bookmark, store, api, minRating */
+// let minRating = 0;
 
-$(document).ready(function() {
+$(document).ready(function () {
   bookmark.bindEventListeners();
   // bookmark.render();
 
   //====== getting data from server
   api.getItems((items) => {
-    items.forEach( item => {
+    items.forEach(item => {
       store.addItem(item)
     })
 
@@ -16,10 +17,14 @@ $(document).ready(function() {
     // store.findAndUpdate(item.id, { name: 'foobar' });
     // console.log('new name:' + item.name);
 
+    api.filterRating();
     bookmark.render()
   });
+
+  // api.filterRating();
+  // bookmark.render()
   // store.items == server.items
-//=================================
+  //=================================
 
 
 });

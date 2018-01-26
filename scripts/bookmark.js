@@ -1,8 +1,9 @@
 'use strict'
 /* global store, minRating */
+let minRating = 0;
 
 // set minimum rating to 0 as default
-let minRating = 0;
+// const minRating = 4;
 
 // eslint-disable-next-line no-unused-vars
 const bookmark = (function () {
@@ -12,19 +13,19 @@ const bookmark = (function () {
     let acc = document.getElementsByClassName("accordion");
     let i;
     for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            /* Toggle between adding and removing the "active" class,
-            to highlight the button that controls the panel */
-            this.classList.toggle("active");
-  
-            /* Toggle between hiding and showing the active panel */
-            let panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-            }
-        });
+      acc[i].addEventListener("click", function () {
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+        this.classList.toggle("active");
+
+        /* Toggle between hiding and showing the active panel */
+        let panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
     }
   }
 
@@ -32,9 +33,9 @@ const bookmark = (function () {
     // console.log(item);
     const rating = $(item.rating);
     const stars = '&#9733;'.repeat(rating[0]);
-    const starsBlank = '&#9734;'.repeat(5-rating[0]);
-    
-    
+    const starsBlank = '&#9734;'.repeat(5 - rating[0]);
+
+
     return `
       <li class="js-item-element" data-item-id="${item.title}">
       ${item.title}
@@ -55,18 +56,18 @@ const bookmark = (function () {
   }
 
   function generatebookmarkItemsString(bookmarkList) {
-    const items = bookmarkList.map((item) => generateItemElement(item));    
+    const items = bookmarkList.map((item) => generateItemElement(item));
     return items.join('');
   }
 
   function render() {
     // Filter item list if store prop is true by item.checked === false
-    let items = store.items;
-  
+    const items = store.items;
+
     // render the bookmark list in the DOM
     console.log('`render` ran');
     const bookmarkListItemsString = generatebookmarkItemsString(items);
-  
+
     // insert that HTML into the DOM
     $('.js-bookmark-list').html(bookmarkListItemsString);
   }
@@ -78,16 +79,99 @@ const bookmark = (function () {
 
       const title = $('.js-bookmark-title').val();
       $('.js-bookmark-title').val('');
-      
+
       const link = $('.js-bookmark-link').val();
       $('.js-bookmark-link').val('');
 
       const description = $('.js-bookmark-description').val();
       $('.js-bookmark-description').val('');
-      
+
       const rating = $('.js-bookmark-rating').val();
       $('.js-bookmark-rating').val('');
-      
+
+      console.log('new item: ', title, link, description, rating);
+
+
+      // store.addItem(newItemName);
+
+      // api.createItem(newItemName, (newItem) => {
+      //   store.addItem(newItem);
+      //   render();
+      // })
+    });
+  }
+
+  // let minRating = 0;
+  function handleNewRatingSubmit() {
+    $('#js-filter-form').submit(function (event) {
+      // location.reload();
+      event.preventDefault();
+      // debugger;
+
+      const numRating = $('#ratingFilter').val();
+      console.log('Rating chosen: ', numRating);
+      minRating = numRating;
+      console.log(minRating);
+      api.filterRating(numRating);
+
+
+      // $('.js-rating-filter').val('');
+
+      // store.addItem(newItemName);
+
+      // api.createItem(newItemName, (newItem) => {
+      //   store.addItem(newItem);
+      //   render();
+      // })
+    });
+  }
+
+  function reset() {
+    $('#js-filter-form').submit(function (event) {
+      // location.reload();
+      event.preventDefault();
+      // debugger;
+
+      const numRating = $('#ratingFilter').val();
+      console.log('Rating chosen: ', numRating);
+      minRating = numRating;
+      console.log(minRating);
+      api.filterRating(numRating);
+
+
+      // $('.js-rating-filter').val('');
+
+      // store.addItem(newItemName);
+
+      // api.createItem(newItemName, (newItem) => {
+      //   store.addItem(newItem);
+      //   render();
+      // })
+    });
+  }
+
+  function handleNewItemSubmit() {
+    $('#js-bookmark-form').submit(function (event) {
+      event.preventDefault();
+      // debugger;
+
+      const title = $('.js-bookmark-title').val();
+      $('.js-bookmark-title').val('');
+
+      const link = $('.js-bookmark-link').val();
+      $('.js-bookmark-link').val('');
+
+      const description = $('.js-bookmark-description').val();
+      $('.js-bookmark-description').val('');
+
+      const rating = $('.js-bookmark-rating').val();
+      // $('.js-bookmark-rating').val('');
+
+      api.createItem(title, link, description, rating, (newItem) => {
+        store.addItem(newItem);
+        render();
+      })
+
       // store.addItem(newItemName);
 
       // api.createItem(newItemName, (newItem) => {
@@ -99,6 +183,7 @@ const bookmark = (function () {
 
   function bindEventListeners() {
     handleNewItemSubmit();
+    handleNewRatingSubmit();
     // handleItemCheckClicked();
     // handleDeleteItemClicked();
     // handleEditShoppingItemSubmit();

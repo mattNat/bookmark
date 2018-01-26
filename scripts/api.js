@@ -41,30 +41,32 @@ const api = (function () {
     $.ajax(setting)
   }
 
-  function filterRating(minRating) {
-    // fetch items from server
-    console.log('BEFORE: ', store.items);
-    store.items = [];
-    console.log('MIDDLE: ', store.items);
-    getItems((items) => {
-      console.log(items);
-      // store.items = items;
-      items.forEach( item => {
-        store.addItem(item)
-      })
-    });
-    console.log('AFTER: ', store.items);
-    // location.reload();
+  function filterRating(num = minRating) {
+    console.log('in filter: ', minRating);
+    
+    // store.items = [];
+    // bookmark.render();
+    // console.log(store.items);
+    
+    // getItems((items) => {
+    //   items.forEach( item => {
+    //     store.addItem(item);
+    //   })
+    //   debugger;
+    //   bookmark.render();
+    // });
 
     let ratedItems = [];
 
     for (let property in store.items) {
-      if (store.items[property].rating >= minRating) {
+      if (store.items[property].rating >= num) {
         ratedItems.push(store.items[property]);
       }
     }
-    console.log(ratedItems);
+    // console.log(ratedItems);
     store.items = ratedItems;
+    // console.log(store.items);
+    
     bookmark.render();
   }
 
