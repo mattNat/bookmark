@@ -1,0 +1,82 @@
+* {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+h2 #title {
+  text-align: center;
+}
+
+.bookmark-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.bookmark-list>li {
+  margin-bottom: 20px;
+  border: 1px solid grey;
+  padding: 20px;
+}
+
+.bookmark-item {
+  display: block;
+  color: grey;
+  font-style: italic;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+#js-bookmark-list-form {
+  border: 1px solid grey;
+  padding: 20px;
+}
+
+
+/* add form */
+
+
+/* Style the buttons that are used to open and close the accordion panel */
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+
+.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+
+
+/* Style the accordion panel. Note: hidden by default */
+
+.panel {
+  margin: 0px;
+  padding: 20px 20px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+  border: 1px solid grey;
+}
+
+.foo {
+  width: 500px;
+  clear: left;
+  text-align: left;
+  padding-right: 0px;
+}
+
+/* input, label, select {
+  float:left;
+} */
