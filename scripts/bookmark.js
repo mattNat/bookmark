@@ -35,6 +35,7 @@ const bookmark = (function () {
     const stars = '&#9733;'.repeat(rating[0]);
     const starsBlank = '&#9734;'.repeat(5 - rating[0]);
     let extend = '';
+    let add = '';
     // const descrip = '';
     // console.log(item.condense);
     if (item.condense === false) {
@@ -43,7 +44,42 @@ const bookmark = (function () {
       <a href="${item.url}">Visit Site</a>
       `;
     }
-    console.log(extend);
+
+    if (item.add === true) {
+      add = `
+        <p>Update Bookmark</p>
+        <form id="js-update-form" action="/action_page.php">
+        <div class="foo">
+          <label for="title">Title:</label>
+          <input class='js-bookmark-title' type="text" id="title" name="title" placeholder="Title of bookmark..." required>
+          <br>
+  
+          <label for="link">Link:</label>
+          <input class='js-bookmark-link' type="text" id="link" name="link" placeholder="Link to site..." required>
+          <br>
+  
+          <label for="description">Description:</label>
+          <input class='js-bookmark-description' type="text" id="description" name="description" placeholder="Input description..." required>
+          <br>
+
+          <label for="rating">Rating</label>
+          <select class='js-bookmark-rating' id="rating" name="rating">
+            <option value="0">Choose</option>
+            <option value="1">&#9733;</option>
+            <option value="2">&#9733;&#9733;</option>
+            <option value="3">&#9733;&#9733;&#9733;</option>
+            <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+            <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;
+          </select>
+          
+
+          <input type="submit" value="Submit">
+        </div>
+
+      </form>
+      `;
+    }
+    $('.js-bookmark-list').append("<p>Appended text</p>");
         
     return `
       <li class="js-item-element" data-item-id="${item.id}" data-item-url="${item.url}" data-item-condense="${item.condense}">
@@ -55,8 +91,12 @@ const bookmark = (function () {
           <button class="bookmark-item-delete js-item-delete">
             <span class="button-label">Delete</span>
           </button>
+          <button class="bookmark-item-update js-item-update">
+            <span class="button-label">Update</span>
+          </button>
           <p>Rating: ${stars}${starsBlank}</p>
           ${extend}
+          ${add}
         </div>
       </li>
       `;
@@ -82,6 +122,35 @@ const bookmark = (function () {
 
   function handleNewItemSubmit() {
     $('#js-bookmark-form').submit(function (event) {
+      event.preventDefault();
+      // debugger;
+
+      const title = $('.js-bookmark-title').val();
+      $('.js-bookmark-title').val('');
+
+      const link = $('.js-bookmark-link').val();
+      $('.js-bookmark-link').val('');
+
+      const description = $('.js-bookmark-description').val();
+      $('.js-bookmark-description').val('');
+
+      const rating = $('.js-bookmark-rating').val();
+      $('.js-bookmark-rating').val('');
+
+      console.log('new item: ', title, link, description, rating);
+
+
+      // store.addItem(newItemName);
+
+      // api.createItem(newItemName, (newItem) => {
+      //   store.addItem(newItem);
+      //   render();
+      // })
+    });
+  }
+
+  function handleUpdateItemSubmit() {
+    $('#js-update-form').submit(function (event) {
       event.preventDefault();
       // debugger;
 
@@ -234,12 +303,25 @@ const bookmark = (function () {
     })
   }
 
+  function handleUpdateClicked() {
+    $('.js-bookmark-list').on('click', '.js-item-update', event => {
+      const cond = getItemCondenseFromElement(event.currentTarget);
+      const id = getItemIdFromElement(event.currentTarget);
+      const item = store.findById(id);
+      // console.log(cond, id, item);
+      store.findAndUpdate(id, { add: !item.add });
+      render();
+
+      // 'true'
+    })
+  }
+
   function handleExpandClicked() {
     $('.js-bookmark-list').on('click', '.js-item-condensed', event => {
       const cond = getItemCondenseFromElement(event.currentTarget);
       const id = getItemIdFromElement(event.currentTarget);
       const item = store.findById(id);
-      console.log(cond, id, item);
+      // console.log(cond, id, item);
       store.findAndUpdate(id, { condense: !item.condense });
       render();
 
@@ -258,6 +340,8 @@ const bookmark = (function () {
     // handleToggleFilterClick();
     // handleShoppingListSearch();
     toggleAddForm();
+    handleUpdateClicked();
+    handleUpdateItemSubmit();
   }
 
   // This object contains the only exposed methods from this module:
@@ -266,4 +350,4 @@ const bookmark = (function () {
     render: render,
     bindEventListeners: bindEventListeners,
   };
-}());link
+}());

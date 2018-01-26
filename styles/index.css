@@ -4,8 +4,19 @@
   margin-right: 10px;
 }
 
-h2 #title {
+body {
+  background-color: lightblue;
+  /* background-image: url('https://hdwallsource.com/img/2016/2/books-wallpaper-49796-51475-hd-wallpapers.jpg'); */
+}
+
+#title-first {
+  background-color: green;
+  padding: 20px 20px;
   text-align: center;
+}
+
+.js-item-element {
+  background-color: lightgrey;
 }
 
 .bookmark-list {
