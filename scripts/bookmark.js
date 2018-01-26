@@ -34,11 +34,20 @@ const bookmark = (function () {
     const rating = $(item.rating);
     const stars = '&#9733;'.repeat(rating[0]);
     const starsBlank = '&#9734;'.repeat(5 - rating[0]);
-
-
+    let extend = '';
+    // const descrip = '';
+    // console.log(item.condense);
+    if (item.condense === false) {
+      extend = `
+      <p>Description: ${item.desc}</p>
+      <a href="${item.url}">Visit Site</a>
+      `;
+    }
+    console.log(extend);
+        
     return `
       <li class="js-item-element" data-item-id="${item.id}" data-item-url="${item.url}" data-item-condense="${item.condense}">
-      ${item.title} <a href="${item.url}">Visit Site</a>
+      ${item.title}
         <div class="bookmark-item-controls">
           <button class="bookmark-item-condensed js-item-condensed">
             <span class="button-label">Expand</span>
@@ -47,6 +56,7 @@ const bookmark = (function () {
             <span class="button-label">Delete</span>
           </button>
           <p>Rating: ${stars}${starsBlank}</p>
+          ${extend}
         </div>
       </li>
       `;

@@ -43,7 +43,7 @@ let store = (function () {
     findAndDelete,
     // toggleCheckedFilter,
     // setSearchTerm,
-    // findAndUpdate
+    findAndUpdate
   };
 
 }());
