@@ -1,5 +1,8 @@
 'use strict'
-/* global store */
+/* global store, minRating */
+
+// set minimum rating to 0 as default
+let minRating = 0;
 
 // eslint-disable-next-line no-unused-vars
 const bookmark = (function () {

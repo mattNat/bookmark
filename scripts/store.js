@@ -6,6 +6,7 @@ console.log('store.js registered');
 const store = (function () {
   const addItem = function(item) {
     item.condense = true;
+    // console.log(this);
     
     this.items.push(item);
 
