@@ -29,6 +29,8 @@ const bookmark = (function () {
     }
   }
 
+  // separate gen item and 
+  // parameterize item
   function generateItemElement(item) {
     // console.log(item.url);
     const rating = $(item.rating);
@@ -45,13 +47,17 @@ const bookmark = (function () {
       `;
     }
 
+    // item here is airbnb
+    // make function outside
+    // add change toUpdate
     if (item.add === true) {
-      add = `
+      function updateItem(item) {
+        add = `
         <p>Update Bookmark</p>
         <form id="js-update-form" action="/action_page.php">
         <div class="foo">
           <label for="title">Title:</label>
-          <input class='js-bookmark-title' type="text" id="title" name="title" placeholder="Title of bookmark..." required>
+          <input class='js-bookmark-title' type="text" id="title" name="title" placeholder="${item.title}" required>
           <br>
   
           <label for="link">Link:</label>
@@ -79,6 +85,8 @@ const bookmark = (function () {
       </form>
       `;
     }
+      }
+      
     $('.js-bookmark-list').append("<p>Appended text</p>");
         
     return `
